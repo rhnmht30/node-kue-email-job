@@ -14,4 +14,4 @@ connectDb = async () => {
 		console.log(err);
 	}
 };
-connectDb();
+// connectDb();
