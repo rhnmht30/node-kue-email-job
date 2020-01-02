@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const { notFoundError, sendErrors } = require("./config/errorHandler");
 const app = express();
+const kue = require("kue");
 
 const cors = require("cors");
 require("dotenv").config();
@@ -14,13 +15,13 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 
 //load Schemas
-const User = require("./models/User");
-
+// const User = require("./models/User");
 //Routes
 app.use("/api/v1/", require("./routes/api/v1/index"));
+app.use("/kue-cli", kue.app);
 
 //Error Handlers
 app.use(notFoundError);
